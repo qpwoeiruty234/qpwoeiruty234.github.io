@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>飛來飛去的大象</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: skyblue;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let elephant = {
+            x: 100,
+            y: canvas.height / 2,  // 初始位置設為畫布高度的中間
+            width: 50,
+            height: 50,
+            speedY: 0,
+            gravity: 0.8,
+            lift: -15
+        };
+
+        let obstacles = [];
+        let score = 0;
+
+        // 控制大象飛行
+        document.addEventListener("keydown", function(e) {
+            if (e.code === "Space" || e.code === "ArrowUp") {
+                elephant.speedY = elephant.lift;
+            }
+        });
+
+        // 障礙物
+        function createObstacle() {
+            const gap = 200;
+            const obstacleHeight = Math.floor(Math.random() * (canvas.height - gap));
+            obstacles.push({
+                x: canvas.width,
+                width: 50,
+                top: obstacleHeight,
+                bottom: canvas.height - obstacleHeight - gap
+            });
+        }
+
+        // 更新遊戲狀態
+        function update() {
+            // 更新大象位置
+            elephant.speedY += elephant.gravity;
+            elephant.y += elephant.speedY;
+
+            // 防止大象掉出畫面
+            if (elephant.y < 0) elephant.y = 0;
+            if (elephant.y > canvas.height - elephant.height) elephant.y = canvas.height - elephant.height;
+
+            // 更新障礙物
+            if (Math.random() < 0.01) createObstacle();
+            obstacles.forEach((obstacle, index) => {
+                obstacle.x -= 5;
+                if (obstacle.x + obstacle.width < 0) obstacles.splice(index, 1);
+                if (elephant.x + elephant.width > obstacle.x &&
+                    elephant.x < obstacle.x + obstacle.width &&
+                    (elephant.y < obstacle.top || elephant.y + elephant.height > obstacle.top + obstacle.bottom)) {
+                    alert("遊戲結束！你的分數是 " + score);
+                    score = 0; // Reset score
+                    elephant.y = canvas.height / 2; // Reset elephant position
+                    obstacles = []; // Clear obstacles
+                }
+            });
+
+            // 更新分數
+            obstacles.forEach(obstacle => {
+                if (obstacle.x + obstacle.width < elephant.x && !obstacle.passed) {
+                    score++;
+                    obstacle.passed = true;
+                }
+            });
+
+            // 清空畫布並重繪
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 畫出大象
+            ctx.fillStyle = "pink";
+            ctx.fillRect(elephant.x, elephant.y, elephant.width, elephant.height);
+
+            // 畫出障礙物
+            obstacles.forEach(obstacle => {
+                ctx.fillStyle = "green";
+                ctx.fillRect(obstacle.x, 0, obstacle.width, obstacle.top); // Top obstacle
+                ctx.fillRect(obstacle.x, canvas.height - obstacle.bottom, obstacle.width, obstacle.bottom); // Bottom obstacle
+            });
+
+            // 顯示分數
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "black";
+            ctx.fillText("Score: " + score, 30, 30);
+        }
+
+        // 遊戲循環
+        function gameLoop() {
+            update();
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+    </script>
+</body>
+</html>

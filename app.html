@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教學網站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        nav {
+            background-color: #333;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #333;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            background-color: #4CAF50;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .course-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .course-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            width: 30%;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-item h3 {
+            margin-top: 0;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>教學網站</h1>
+    <p>提供各種學習資源，幫助你提升技能</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#home">首頁</a></li>
+        <li><a href="#courses">課程</a></li>
+        <li><a href="#contact">聯絡我們</a></li>
+    </ul>
+</nav>
+
+<div class="content" id="home">
+    <h2>歡迎來到教學網站！</h2>
+    <p>這裡提供各種學習資源和課程，幫助你提升技能，從基礎到進階都有。</p>
+</div>
+
+<div class="content" id="courses">
+    <h2>我們的課程</h2>
+    <div class="course-list">
+        <div class="course-item">
+            <h3>HTML 基礎</h3>
+            <p>學習HTML的基本語法，創建簡單的網頁。</p>
+            <a href="#">開始學習</a>
+        </div>
+        <div class="course-item">
+            <h3>CSS 樣式設計</h3>
+            <p>學習如何使用CSS設計美觀的網頁。</p>
+            <a href="#">開始學習</a>
+        </div>
+        <div class="course-item">
+            <h3>JavaScript 入門</h3>
+            <p>學習JavaScript語言的基礎，並開始製作互動式網頁。</p>
+            <a href="#">開始學習</a>
+        </div>
+    </div>
+</div>
+
+<div class="content" id="contact">
+    <h2>聯絡我們</h2>
+    <p>如有任何問題，請隨時與我們聯繫。</p>
+    <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
+        <label for="name">姓名:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="email">電子郵件:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+        
+        <label for="message">訊息:</label><br>
+        <textarea id="message" name="message" rows="4" required></textarea><br><br>
+        
+        <input type="submit" value="發送">
+    </form>
+</div>
+
+<footer>
+    <p>&copy; 2024 教學網站 | 所有權利保留</p>
+</footer>
+
+</body>
+</html>
